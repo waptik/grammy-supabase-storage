@@ -3,7 +3,6 @@ import IORedis from 'ioredis';
 
 export class RedisAdapter<T> implements StorageAdapter<T> {
   private redis: IORedis.Redis
-  test: string
 
   constructor({
     redisUrl,
@@ -27,29 +26,18 @@ export class RedisAdapter<T> implements StorageAdapter<T> {
   }
 
   async read(key: string) {
-    try {
-      const value = await this.redis.hmget(key) as unknown as T;
-      //console.log('v', value)
-      return value;
-    } catch (e) {
-      console.error(e);
-      return null;
+    const session = await this.redis.get(key);
+    if (!session) {
+      return undefined;
     }
+    return JSON.parse(session) as unknown as T;
   }
 
   async write(key: string, value: T) {
-    try {
-      await this.redis.hmset(key, value as any);
-    } catch (e) {
-      console.error(e);
-    }
+    await this.redis.set(key, JSON.stringify(value));
   }
 
   async delete(key: string) {
-    try {
-      await this.redis.del(key);
-    } catch (e) {
-      console.error(e);
-    }
+    await this.redis.del(key);
   }
 }
