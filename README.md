@@ -5,7 +5,7 @@ Storage adapter that can be used to [store your session data](https://grammy.dev
 ## Installation
 
 ```bash
-npm install @satont/grammy-storage-redis --save
+npm install @satont/grammy-redis-storage --save
 ```
 
 ## Introduction
@@ -14,7 +14,7 @@ Put those values into the following example code:
 
 ```ts
 import { Bot, Context, session, SessionFlavor } from "grammy";
-import { RedisAdapter } from "@satont/grammy-storage-redis";
+import { RedisAdapter } from "@satont/grammy-redis-storage";
 
 interface SessionData {
   counter: number;
