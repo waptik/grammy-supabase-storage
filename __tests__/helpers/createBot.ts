@@ -1,4 +1,4 @@
-import { Bot, Context, session, SessionFlavor } from 'grammy';
+import { Bot, Context, SessionFlavor } from 'grammy';
 export interface SessionData {
   pizzaCount: number;
 }
