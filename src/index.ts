@@ -27,11 +27,11 @@ export class RedisAdapter<T> implements StorageAdapter<T> {
   }
 
   async read(key: string) {
-    if (!await this.redis.get(key)) {
+    const session = await this.redis.get(key);
+    if (!session) {
       return undefined;
     }
-    const value = await this.redis.get(key) as unknown as string;
-    return JSON.parse(value) as unknown as T;
+    return JSON.parse(session) as unknown as T;
   }
 
   async write(key: string, value: T) {
