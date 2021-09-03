@@ -1,6 +1,6 @@
 {
   "name": "@satont/grammy-redis-storage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Redis storage for grammy library.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Satont/grammy-storage-redis.git"
+    "url": "git+https://github.com/Satont/grammy-redis-storage.git"
   },
   "author": "Satont <satontworldwide@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Satont/grammy-storage-redis/issues"
+    "url": "https://github.com/Satont/grammy-redis-storage/issues"
   },
-  "homepage": "https://github.com/Satont/grammy-storage-redis#readme",
+  "homepage": "https://github.com/Satont/grammy-redis-storage#readme",
   "devDependencies": {
     "@types/ioredis": "^4.27.1",
     "@types/ioredis-mock": "^5.6.0",
