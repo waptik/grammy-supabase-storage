@@ -1,7 +1,7 @@
 {
   "name": "grammy-redis-storage",
   "version": "1.0.0",
-  "description": "",
+  "description": "Redis storage for grammy library.",
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Satont/typescript-template.git"
+    "url": "git+https://github.com/Satont/grammy-storage-redis.git"
   },
   "author": "Satont <satontworldwide@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Satont/typescript-template/issues"
+    "url": "https://github.com/Satont/grammy-storage-redis/issues"
   },
-  "homepage": "https://github.com/Satont/typescript-template#readme",
+  "homepage": "https://github.com/Satont/grammy-storage-redis#readme",
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/ioredis": "^4.27.1",
