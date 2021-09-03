@@ -27,19 +27,16 @@ export class RedisAdapter<T> implements StorageAdapter<T> {
   }
 
   async read(key: string) {
-    try {
-      const value = await this.redis.hmget(key) as unknown as T;
-      //console.log('v', value)
-      return value;
-    } catch (e) {
-      console.error(e);
-      return null;
+    if (!await this.redis.get(key)) {
+      return undefined;
     }
+    const value = await this.redis.get(key) as unknown as string;
+    return JSON.parse(value) as unknown as T;
   }
 
   async write(key: string, value: T) {
     try {
-      await this.redis.hmset(key, value as any);
+      await this.redis.set(key, JSON.stringify(value));
     } catch (e) {
       console.error(e);
     }
