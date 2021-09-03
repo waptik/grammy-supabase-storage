@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "README.md",
-    "dist"
+    "dist",
+    "package.json"
   ],
   "scripts": {
     "test": "npx jest",
