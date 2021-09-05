@@ -1,32 +1,48 @@
 # Redis storage adapter for grammY
 
-Storage adapter that can be used to [store your session data](https://grammy.dev/plugins/session.html) in [Redis](https://redis.io/) when using sessions.
+Storage adapter that can be used to [store your session data](https://grammy.dev/plugins/session.html) in [Supabse](https://supabase.io/) when using sessions.
 
 ## Installation
 
 ```bash
-npm install @satont/grammy-redis-storage --save
+npm install @waptik/grammy-supabase-storage --save
 ```
 
-## Introduction
+## Instructions
+To get started, you first need to
+- Have both `@supabase/supabase-js` and `grammy` installed
+- Have a defined table for sessions in supabase will the following informations:
+  - `id` as a primary key of string, cannot be null either
+  - `session` as string, cannot be null as well 
 
-Put those values into the following example code:
+
+## How to use
+
+Here is a simple example on how it's done:
 
 ```ts
 import { Bot, Context, session, SessionFlavor } from "grammy";
-import { RedisAdapter } from "@satont/grammy-redis-storage";
+import { SupabaseAdapter } from "@waptik/grammy-supabase-storage";
+import { createClient } from '@supabase/supabase-js';
 
 interface SessionData {
   counter: number;
 }
 type MyContext = Context & SessionFlavor<SessionData>;
 
-//create storage
-const storage = new RedisAdapter({ redisUrl: 'redis://localhost:6379/0' })
-
-// alternatives you can pass redis connection inside of class
+// supabase instance
 const RedisInstance = new Redis()
-const storage = new RedisAdapter({ instance: RedisInstance })
+
+const URL = 'http://localhost:3000';
+const KEY = 'some.fake.key';
+
+const supabase = createClient(URL, KEY);
+
+//create storage
+const storage = new RedisAdapter({ 
+  supabase,
+   table: "session" // the defined table name you want to use to store your session
+    })
 
 // Create bot and register session middleware
 const bot = new Bot<MyContext>("");

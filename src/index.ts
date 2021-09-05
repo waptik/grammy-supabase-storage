@@ -1,43 +1,26 @@
-import { StorageAdapter } from 'grammy';
-import IORedis from 'ioredis';
+import { SupabaseClient } from '@supabase/supabase-js';
 
-export class RedisAdapter<T> implements StorageAdapter<T> {
-  private redis: IORedis.Redis
+interface Session {
+  id: string;
+  session: string;
+}
 
-  constructor({
-    redisUrl,
-    instance,
-    options,
-  }: {
-    redisUrl?: string,
-    instance?: IORedis.Redis,
-    options?: IORedis.RedisOptions
-  }) {
-    if (redisUrl) {
-      const redis = new IORedis(redisUrl, options);
-      this.redis = redis;
-    } else if (instance) {
-      this.redis = instance;
-    } else {
-      throw new Error('You should pass redisUrl or redis instance to constructor.');
-    }
+export function SupabaseAdapter<T>({ supabase, table }: { supabase: SupabaseClient; table: string }) {
+  return {
+    read: async (id: string) => {
+      const { data, error } = await supabase.from<Session>(table).select('session').eq('id', id).single();
+      if (error || !data) {
+        return undefined;
+      }
+      return JSON.parse(data.session) as T;
+    },
+    write: async (id: string, value: T) => {
+      const input = { id, session: JSON.stringify(value) };
 
-    return this;
-  }
-
-  async read(key: string) {
-    const session = await this.redis.get(key);
-    if (session === null) {
-      return undefined;
-    }
-    return JSON.parse(session) as unknown as T;
-  }
-
-  async write(key: string, value: T) {
-    await this.redis.set(key, JSON.stringify(value));
-  }
-
-  async delete(key: string) {
-    await this.redis.del(key);
-  }
+      await supabase.from<Session>(table).upsert(input, { returning: 'minimal' });
+    },
+    delete: async (id: string) => {
+      await supabase.from<Session>(table).delete({ returning: 'minimal' }).match({ id });
+    },
+  };
 }
