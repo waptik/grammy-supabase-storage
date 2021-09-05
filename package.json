@@ -1,7 +1,7 @@
 {
-  "name": "@waptik/grammy-supabase-storage",
-  "version": "1.0.2",
-  "description": "Redis storage for grammy library.",
+  "name": "@waptik/grammy-supabase-adapter",
+  "version": "1.0.0",
+  "description": "Supabase database storage for grammy library.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

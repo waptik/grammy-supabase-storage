@@ -1,6 +1,6 @@
-# Redis storage adapter for grammY
+# Supabase database storage adapter for grammY
 
-Storage adapter that can be used to [store your session data](https://grammy.dev/plugins/session.html) in [Supabse](https://supabase.io/) when using sessions.
+Database storage adapter that can be used to [store your session data](https://grammy.dev/plugins/session.html) in [Supabase database](https://supabase.io/docs/guides/database) when using sessions.
 
 ## Installation
 
@@ -30,16 +30,14 @@ interface SessionData {
 }
 type MyContext = Context & SessionFlavor<SessionData>;
 
-// supabase instance
-const RedisInstance = new Redis()
-
 const URL = 'http://localhost:3000';
 const KEY = 'some.fake.key';
 
+// supabase instance
 const supabase = createClient(URL, KEY);
 
 //create storage
-const storage = new RedisAdapter({ 
+const storage = SupabaseAdapter({ 
   supabase,
    table: "session" // the defined table name you want to use to store your session
     })
