@@ -1,6 +1,6 @@
 {
   "name": "@waptik/grammy-supabase-adapter",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Supabase database storage for grammy library.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

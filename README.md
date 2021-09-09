@@ -1,3 +1,10 @@
+# Depreciation notice
+
+This project is not maintained anymore.
+Please consider using the official plugin: [@grammyjs/storage-supabase](https://github.com/grammyjs/storage-supabase)
+
+## New Section
+
 # Supabase database storage adapter for grammY
 
 Database storage adapter that can be used to [store your session data](https://grammy.dev/plugins/session.html) in [Supabase database](https://supabase.io/docs/guides/database) when using sessions.
@@ -23,7 +30,7 @@ Here is a simple example on how it's done:
 
 ```ts
 import { Bot, Context, session, SessionFlavor } from 'grammy';
-import { SupabaseAdapter } from '@waptik/grammy-supabase-adapter';
+import { supabaseAdapter } from '@waptik/grammy-supabase-adapter';
 import { createClient } from '@supabase/supabase-js';
 
 interface SessionData {
@@ -38,7 +45,7 @@ const KEY = 'some.fake.key';
 const supabase = createClient(URL, KEY);
 
 //create storage
-const storage = SupabaseAdapter({
+const storage = supabaseAdapter({
   supabase,
   table: 'session', // the defined table name you want to use to store your session
 });
